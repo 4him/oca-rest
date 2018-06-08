@@ -10,6 +10,16 @@ class User {
 
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
     public User(Integer id, String name, String surname, Integer age) {
         this.id = id;
         this.name = name;

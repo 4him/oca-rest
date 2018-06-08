@@ -1,9 +1,8 @@
 package com.tekwill.oca.myrest;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,56 +12,50 @@ import java.util.Random;
 @RequestMapping(value = "/users")
 public class RootController {
 
+    @Autowired
+    @Qualifier(value = "user")
+    private UserService userService;
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String getName() {
 
-        return "JORA";
-    }
-
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public User getUser() {
-        User user = new User();
-        user.setName("Jora");
-        user.setSurname("Vartan");
-        user.setAge(40);
-
-        return user;
-    }
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
-
-        for(int i = 0; i < 10; i++) {
-            users.add(new User(i,"User" + String.valueOf(i),
-                    "Surname",
-                    new Random().nextInt(10) + 20));
-        }
-
-        return users;
+        return userService.getAllUsers();
     }
-
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUserById(@PathVariable("id") Integer id) {
+        return userService.getUserById(id);
+    }
 
-        List<User> users = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
-            users.add(new User(i,"User" + String.valueOf(i),
-                    "Surname",
-                    new Random().nextInt(10) + 20));
-        }
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteUserById(@PathVariable("id") Integer id) {
+        userService.deleteById(id);
+    }
 
-
-        User user = users.stream()
-                .filter(u -> u.getId().equals(id))
-                .findAny().orElse(new User());
-
-
+    @RequestMapping(method = RequestMethod.POST)
+    public User createUser(@RequestBody User user) {
+        user.setId(new Random().nextInt(1_000_000));
         return user;
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public User updateUserById(@PathVariable("id") Integer id, @RequestBody User user) {
+        System.out.println(user);
+        System.out.println("id = " + id);
 
+        return user;
+//        userService.updateUserById(id);
+    }
+
+    /**
+     *    {
+     *     "id": 502532,
+     *     "name": "1",
+     *     "surname": "Jora",
+     *     "age": 40
+     * }
+     *
+     *
+     */
 }
 
