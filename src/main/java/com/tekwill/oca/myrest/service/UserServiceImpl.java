@@ -1,6 +1,6 @@
-package com.tekwill.oca.myrest;
+package com.tekwill.oca.myrest.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tekwill.oca.myrest.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

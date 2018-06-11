@@ -1,10 +1,11 @@
-package com.tekwill.oca.myrest;
+package com.tekwill.oca.myrest.controller;
 
+import com.tekwill.oca.myrest.model.User;
+import com.tekwill.oca.myrest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -13,9 +14,7 @@ import java.util.Random;
 public class RootController {
 
     @Autowired
-    @Qualifier(value = "user")
     private UserService userService;
-
 
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUsers() {
@@ -44,18 +43,7 @@ public class RootController {
         System.out.println("id = " + id);
 
         return user;
-//        userService.updateUserById(id);
     }
 
-    /**
-     *    {
-     *     "id": 502532,
-     *     "name": "1",
-     *     "surname": "Jora",
-     *     "age": 40
-     * }
-     *
-     *
-     */
 }
 

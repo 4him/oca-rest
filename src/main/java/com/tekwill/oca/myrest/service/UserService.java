@@ -1,4 +1,6 @@
-package com.tekwill.oca.myrest;
+package com.tekwill.oca.myrest.service;
+
+import com.tekwill.oca.myrest.model.User;
 
 import java.util.List;
 

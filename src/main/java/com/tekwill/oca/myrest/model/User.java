@@ -1,6 +1,6 @@
-package com.tekwill.oca.myrest;
+package com.tekwill.oca.myrest.model;
 
-class User {
+public class User {
     private Integer id;
     private String name;
     private String surname;
